@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CS171 - Lab 10</title>
+
+    <!-- Load Google Font -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:100,400,300,400italic,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin=""/>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-10 offset-1">
+
+                <!-- header -->
+                <div class="row justify-content-center">
+
+                    <!-- Headline -->
+                    <h1 class="align-self-center">
+                        OpenAQ Observation
+                        <span class="divider">|</span>
+                        <span class="sub-headline">
+                                <span id="station-count"></span>
+                                Stations
+                            </span>
+                    </h1>
+                </div>
+
+                <!-- content | map -->
+                <div class="row">
+                    <!-- Visualization placeholders -->
+                    <div id="station-map"></div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div id="timeline"></div>
+                    </div>
+                </div>
+                <div class="row third-row">
+                    <!-- Visualization placeholders -->
+                    <div class="col-6 detailed-chart" id="chart1"></div>
+                    <div class="col-6 detailed-chart" id="chart2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load JS libraries !!ATTENTION: THIS IS NOT THE SLIM JQUERY VERSION THAT BOOTSTRAP USES/PROVIDES!! -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <!-- d3 -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+
+    <!-- Visualization objects -->
+    <script src="js/stationMap.js"></script>
+    <script src="js/timeline.js"></script>
+    <script src="js/airQuality.js"></script>
+
+    <!-- Load data, create visualizations -->
+    <script src="js/main.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
+</body>
+</html>
