@@ -10,10 +10,8 @@ class StationMap {
 	/*
 	 *  Constructor method
 	 */
-	constructor(parentElement, locationData, ozoneData, mapViewPoint) {
+	constructor(parentElement, mapViewPoint) {
 		this.parentElement = parentElement;
-		this.locationData = locationData;
-		this.ozoneData = ozoneData
 		this.mapViewPoint = mapViewPoint;
 
 		this.initVis();
@@ -26,7 +24,7 @@ class StationMap {
 	initVis () {
 		let vis = this;
 
-		vis.map = L.map(vis.parentElement).setView(vis.mapViewPoint, 8)
+		vis.map = L.map(vis.parentElement).setView(vis.mapViewPoint, 6.5)
 
 		L.Icon.Default.imagePath = 'img/';
 
@@ -36,36 +34,6 @@ class StationMap {
 
 		vis.stationMarkers = L.layerGroup().addTo(vis.map);
 
-		vis.parameter
-
-		// vis.MBTALayer = L.layerGroup().addTo(vis.map);
-		//
-		// d3.json("data/MBTA-Lines.json")
-		// 	.then(data => {
-		// 		let MBTA = L.geoJSON(data, {
-		// 			style: styleLine,
-		// 			weight: 3,
-		// 			onEachFeature: onEachLine
-		// 		}).addTo(vis.map);
-		// 		vis.MBTALayer.addLayer(MBTA);
-		// 	});
-		//
-		// function styleLine(feature) {
-		// 	return {color: feature.properties.LINE.toLowerCase()};
-		// 	// switch (feature.properties.LINE) {
-		// 	// 	case 'GREEN': return {color: 'green'};
-		// 	// 	case 'RED': return {color: 'red'};
-		// 	// 	case 'SILVER': return {color: 'silver'};
-		// 	// 	case 'BLUE': return {color: 'blue'};
-		// 	// 	case 'ORANGE': return {color: 'orange'};
-		// 	// }
-		// }
-		//
-		// function onEachLine(feature, layer) {
-		// 	layer.bindPopup(feature.properties.LINE + " LINE");
-		// }
-
-		vis.wrangleData();
 	}
 
 
@@ -74,6 +42,8 @@ class StationMap {
 	 */
 	wrangleData () {
 		let vis = this;
+
+		vis.locationData = locationData;
 
 		// Update the visualization
 		vis.updateVis();
@@ -102,9 +72,9 @@ class StationMap {
 				.bindPopup(popupContent)
 				.addTo(vis.map)
 				.on('click', function(e) {
-					let location_name = e.target.options.className;
-					let latlng = e.latlng;
-					showAQ(location_name, latlng);
+					locationName = e.target.options.className;
+					latlng = e.latlng;
+					showAQ();
 				});
 			vis.stationMarkers.addLayer(marker);
 		});

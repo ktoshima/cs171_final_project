@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CS171 - Lab 10</title>
+    <title>CS171 - Final Project</title>
 
     <!-- Load Google Font -->
     <link href='https://fonts.googleapis.com/css?family=Roboto:100,400,300,400italic,700' rel='stylesheet' type='text/css'>
@@ -31,6 +31,14 @@
                                 Stations
                             </span>
                     </h1>
+                    <div class="form-group">
+                        <label for="gas">Gas:</label>
+                        <select class="form-control" id="gas" onchange="changeGas()">
+                            <option value="o3">Ozone</option>
+                            <option value="pm25">PM2.5</option>
+                            <option value="no2">Nitrogen Dioxide</option>
+                        </select>
+                    </div>
                 </div>
 
                 <!-- content | map -->
@@ -60,15 +68,16 @@
     <!-- d3 -->
     <script src="https://d3js.org/d3.v6.min.js"></script>
 
+    <!-- Load data, create visualizations -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
+
     <!-- Visualization objects -->
     <script src="js/stationMap.js"></script>
     <script src="js/timeline.js"></script>
     <script src="js/airQuality.js"></script>
-
-    <!-- Load data, create visualizations -->
+    <script src="js/fireEmission.js"></script>
     <script src="js/main.js"></script>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-            crossorigin=""></script>
 </body>
 </html>

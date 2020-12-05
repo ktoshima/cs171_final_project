@@ -63,7 +63,7 @@ class Timeline {
      */
     wrangleData () {
         let vis = this;
-        let data = displayData;
+        let data = airQualityData;
         vis.updateVis(data);
     }
 
@@ -71,7 +71,8 @@ class Timeline {
         let vis = this;
 
         // console.log(d3.extent(data, d => d3.utcParse(d.date.utc)));
-        vis.x.domain(d3.extent(data, d => dateParser(d.date.utc)))
+        vis.x.domain(d3.extent(data, d => dateParser(d.date.utc)));
+        selectionDomain = d3.extent(data, d => dateParser(d.date.utc));
         vis.y.domain([0, d3.max(data, d => d.value)]);
 
         // SVG area path generator
