@@ -5,7 +5,7 @@
  */
 
 
-class AirQuality {
+class FireEmission {
 
 // constructor method to initialize StackedAreaChart object
     constructor(parentElement) {
@@ -45,45 +45,24 @@ class AirQuality {
         vis.x = d3.scaleUtc()
             .range([0, vis.width]);
 
-        vis.y_aq = d3.scaleLinear()
-            .range([vis.height, 0]);
-
-        vis.y_fire = d3.scaleLinear()
+        vis.y = d3.scaleLinear()
             .range([vis.height, 0]);
 
         vis.xAxis = d3.axisBottom()
             .scale(vis.x);
 
-        vis.yAxisLeft = d3.axisLeft()
-            .scale(vis.y_aq);
-
-        vis.yAxisRight= d3.axisRight()
-            .scale(vis.y_fire);
+        vis.yAxis = d3.axisLeft()
+            .scale(vis.y);
 
         vis.svg.append("g")
             .attr("class", "x-axis axis")
             .attr("transform", "translate(0," + vis.height + ")");
 
         vis.svg.append("g")
-            .attr("class", "y-axis y-axis-left axis")
-            // .style("fill", "steelblue");
-
-        vis.svg.append("g")
-            .attr("class", "y-axis y-axis-right axis")
-            .attr("transform", "translate(" + vis.width + " ,0)")
-            // .style("fill", "red");
+            .attr("class", "y-axis axis");
 
         vis.svg.append("path")
-            .attr("stroke", "none")
-            .attr("fill", "steelblue")
-            .attr("fill-opacity", 0.5)
             .attr('class', 'aq-line')
-
-        vis.svg.append("path")
-            .attr("stroke", "none")
-            .attr("fill", "red")
-            .attr("fill-opacity", 0.5)
-            .attr('class', 'fire-line')
 
     }
 
@@ -93,77 +72,50 @@ class AirQuality {
     wrangleData(){
         let vis = this;
 
-        let aqdata = airQualityData.filter(elem => {
+        let data = airQualityData.filter(elem => {
             let row_date = dateParser(elem.date.utc)
             return selectionDomain[0] <= row_date && row_date < selectionDomain[1];
-        });
-        console.log(aqdata);
-
-        let firedata = fireData.filter(elem => {
-            return selectionDomain[0] <= elem.time && elem.time < selectionDomain[1]
-                && elem.lat >= latlng.lat && latlng.lat >= elem.lat - 2.5
-                && elem.lon <= latlng.lng && latlng.lng <= elem.lon + 2.5;
-        });
-        console.log(firedata);
+        })
 
         // Update the visualization
-        vis.updateVis(aqdata, firedata);
+        vis.updateVis(data);
     }
 
     /*
      * The drawing function - should use the D3 update sequence (enter, update, exit)
      * Function parameters only needed if different kinds of updates are needed
      */
-    updateVis(aqdata, firedata){
+    updateVis(data){
         let vis = this;
 
         // Update domain
         // Get the maximum of the multi-dimensional array or in other words, get the highest peak of the uppermost layer
         vis.x.domain(selectionDomain);
-        vis.y_aq.domain([0, d3.max(aqdata, d => d.value)]);
-        vis.y_fire.domain([0, Math.max(d3.max(firedata, d => d.emission), 1.)]);
+        vis.y.domain([0, d3.max(data, d => d.value)]);
 
         // SVG area path generator
-        vis.area_aq = d3.area()
+        vis.area = d3.area()
             .defined(d => !isNaN(d.value))
             .x(function(d) {
                 return vis.x(dateParser(d.date.utc));
             })
             .y0(vis.height)
-            .y1(function(d) {
-                return vis.y_aq(d.value);
-            });
-
-        vis.area_fire = d3.area()
-            .x(function(d) {
-                return vis.x(d.time);
-            })
-            .y0(vis.height)
-            .y1(function(d) {
-                return vis.y_fire(d.emission);
-            });
+            .y1(function(d) { return vis.y(d.value); });
 
         // Draw area by using the path generator
         vis.svg.select("path.aq-line")
-            .datum(aqdata.filter(vis.area_aq.defined()))
+            .datum(data.filter(vis.area.defined()))
             .transition()
-            .attr("d", vis.area_aq);
-
-        vis.svg.select("path.fire-line")
-            .datum(firedata)
-            .transition()
-            .attr("d", vis.area_fire);
+            .attr("fill", "#ccc")
+            .attr("d", vis.area);
 
         // Call axis functions with the new domain
         vis.svg.select(".x-axis")
             .transition()
             .call(vis.xAxis);
-        vis.svg.select(".y-axis-left")
+        vis.svg.select(".y-axis")
             .transition()
-            .call(vis.yAxisLeft);
-        vis.svg.select(".y-axis-right")
-            .transition()
-            .call(vis.yAxisRight);
-
+            .call(vis.yAxis);
+        vis.svg.select("path.aq-line")
     }
 }
