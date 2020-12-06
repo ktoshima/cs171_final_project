@@ -3,9 +3,12 @@ let stationMap,
     timelineChart,
     airQualityChart,
     fireChart,
-    airQualityData,
     locationData,
+    airQualityData,
+    displayAirQualityData,
+    fireDataAll,
     fireData,
+    displayFireData,
     locationName,
     latlng;
 
@@ -29,7 +32,7 @@ d3.csv("data/carbon_emission.csv", row => {
     row.emission = +row.emission;
     return row;
 }).then(fire_data => {
-    fireData = fire_data;
+    fireDataAll = fire_data;
     stationMap = new StationMap(
         "station-map",
         [38.56319009231658, -118.08817443255774]
@@ -63,8 +66,7 @@ function getLocations(gas_param) {
                     {
                         "name": location.location,
                         "lon": location.coordinates.longitude,
-                        "lat": location.coordinates.latitude,
-                        "parameters": location.parameters
+                        "lat": location.coordinates.latitude
                     })
             });
             // Display number of stations in DOM
@@ -84,12 +86,16 @@ function showAQ() {
         sort: 'asc',
         parameter: gas_param,
         format: 'json'
-    })
+    });
     fetch(url+'?'+qs)
         .then(response => response.json())
         .then(d => d.results)
         .then(data => {
             airQualityData = data;
+            selectionDomain = d3.extent(airQualityData, d => dateParser(d.date.utc));
+            wrangleAQdata();
+            gridFireData();
+            wrangleFireData();
             timelineChart.wrangleData();
             airQualityChart.wrangleData();
             fireChart.wrangleData();
@@ -107,6 +113,9 @@ function brushed() {
     } else {
         selectionDomain = d3.extent(airQualityData, d => dateParser(d.date.utc))
     }
+    wrangleAQdata()
+    wrangleFireData()
     airQualityChart.wrangleData();
+    fireChart.wrangleData()
 
 }

@@ -35,7 +35,10 @@ class Timeline {
         vis.x = d3.scaleUtc()
             .range([0, vis.width]);
 
-        vis.y = d3.scaleLinear()
+        vis.y_aq = d3.scaleLinear()
+            .range([vis.height, 0]);
+
+        vis.y_fire = d3.scaleLinear()
             .range([vis.height, 0]);
 
         vis.xAxis = d3.axisBottom()
@@ -46,7 +49,9 @@ class Timeline {
             .attr("transform", "translate(0," + vis.height + ")")
 
         vis.svg.append("path")
-            .attr("class", "timeline")
+            .attr("class", "timeline-aq")
+        vis.svg.append("path")
+            .attr("class", "timeline-fire")
 
         let brush = d3.brushX()
             .extent([[0, 0], [vis.width, vis.height]])
@@ -63,33 +68,50 @@ class Timeline {
      */
     wrangleData () {
         let vis = this;
-        let data = airQualityData;
-        vis.updateVis(data);
+        vis.updateVis();
     }
 
-    updateVis(data) {
+    updateVis() {
         let vis = this;
 
         // console.log(d3.extent(data, d => d3.utcParse(d.date.utc)));
-        vis.x.domain(d3.extent(data, d => dateParser(d.date.utc)));
-        selectionDomain = d3.extent(data, d => dateParser(d.date.utc));
-        vis.y.domain([0, d3.max(data, d => d.value)]);
+        vis.x.domain(d3.extent(airQualityData, d => dateParser(d.date.utc)));
+        vis.y_aq.domain([0, d3.max(airQualityData, d => d.value)]);
+        vis.y_fire.domain([0, d3.max(fireData, d => d.emission)]);
 
         // SVG area path generator
-        vis.area = d3.area()
+        vis.area_aq = d3.area()
             .defined(d => !isNaN(d.value))
             .x(function(d) {
                 return vis.x(dateParser(d.date.utc));
             })
             .y0(vis.height)
-            .y1(function(d) { return vis.y(d.value); });
+            .y1(function(d) {
+                return vis.y_aq(d.value);
+            });
+
+        vis.area_fire = d3.area()
+            .x(function(d) {
+                return vis.x(d.time);
+            })
+            .y0(vis.height)
+            .y1(function(d) {
+                return vis.y_fire(d.emission);
+            });
 
         // Draw area by using the path generator
-        vis.svg.select("path.timeline")
-            .datum(data.filter(vis.area.defined()))
+        vis.svg.select("path.timeline-aq")
+            .datum(airQualityData.filter(vis.area_aq.defined()))
             .transition()
-            .attr("fill", "#ccc")
-            .attr("d", vis.area);
+            .attr("fill", "steelblue")
+            .attr("fill-opacity", 0.5)
+            .attr("d", vis.area_aq);
+        vis.svg.select("path.timeline-fire")
+            .datum(fireData)
+            .transition()
+            .attr("fill", "red")
+            .attr("fill-opacity", 0.5)
+            .attr("d", vis.area_fire);
 
         vis.svg.select(".x-axis")
             .transition()

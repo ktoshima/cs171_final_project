@@ -93,39 +93,28 @@ class AirQuality {
     wrangleData(){
         let vis = this;
 
-        let aqdata = airQualityData.filter(elem => {
-            let row_date = dateParser(elem.date.utc)
-            return selectionDomain[0] <= row_date && row_date < selectionDomain[1];
-        });
-        console.log(aqdata);
-
-        let firedata = fireData.filter(elem => {
-            return selectionDomain[0] <= elem.time && elem.time < selectionDomain[1]
-                && elem.lat >= latlng.lat && latlng.lat >= elem.lat - 2.5
-                && elem.lon <= latlng.lng && latlng.lng <= elem.lon + 2.5;
-        });
-        console.log(firedata);
-
         // Update the visualization
-        vis.updateVis(aqdata, firedata);
+        vis.updateVis();
     }
 
     /*
      * The drawing function - should use the D3 update sequence (enter, update, exit)
      * Function parameters only needed if different kinds of updates are needed
      */
-    updateVis(aqdata, firedata){
+    updateVis(){
         let vis = this;
 
         // Update domain
         // Get the maximum of the multi-dimensional array or in other words, get the highest peak of the uppermost layer
         vis.x.domain(selectionDomain);
-        vis.y_aq.domain([0, d3.max(aqdata, d => d.value)]);
-        vis.y_fire.domain([0, Math.max(d3.max(firedata, d => d.emission), 1.)]);
+        vis.y_aq.domain([0, d3.max(displayAirQualityData, d => d.value)]);
+        vis.y_fire.domain([0, Math.max(d3.max(displayFireData, d => d.emission), 1.)]);
 
         // SVG area path generator
         vis.area_aq = d3.area()
-            .defined(d => !isNaN(d.value))
+            .defined(d => {
+                return !isNaN(d.value)
+            })
             .x(function(d) {
                 return vis.x(dateParser(d.date.utc));
             })
@@ -145,12 +134,12 @@ class AirQuality {
 
         // Draw area by using the path generator
         vis.svg.select("path.aq-line")
-            .datum(aqdata.filter(vis.area_aq.defined()))
+            .datum(displayAirQualityData.filter(vis.area_aq.defined()))
             .transition()
             .attr("d", vis.area_aq);
 
         vis.svg.select("path.fire-line")
-            .datum(firedata)
+            .datum(displayFireData)
             .transition()
             .attr("d", vis.area_fire);
 
