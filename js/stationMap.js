@@ -75,6 +75,7 @@ class StationMap {
 					locationName = e.target.options.className;
 					latlng = e.latlng;
 					showAQ();
+					fullpage_api.moveTo(2)
 				});
 			vis.stationMarkers.addLayer(marker);
 		});

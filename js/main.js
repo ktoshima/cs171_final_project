@@ -76,7 +76,11 @@ function getLocations(gas_param) {
 }
 
 function showAQ() {
+    $("#location-name").html(locationName);
+    $("#coords").html(latlng.lat + ", " + latlng.lng);
     let gas_param = $('#gas').val();
+    let contam_dict = {o3: "Ozone", pm25: "PM2.5", no2: "Nitrogen dioxide"}
+    $("#contaminant").html(contam_dict[gas_param]);
     let url = 'https://api.openaq.org/v1/measurements';
     let qs = new URLSearchParams({
         location: locationName,
@@ -91,6 +95,7 @@ function showAQ() {
         .then(response => response.json())
         .then(d => d.results)
         .then(data => {
+            console.log("measurements loaded")
             airQualityData = data;
             selectionDomain = d3.extent(airQualityData, d => dateParser(d.date.utc));
             wrangleAQdata();

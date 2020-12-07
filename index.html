@@ -13,29 +13,31 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
           integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
           crossorigin=""/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.9/fullpage.css" integrity="sha512-1No3nMY/zD37h1POyqULfwc9WMzWvXcal6F7/OIhNdWkTaEbt4Y6eqX0vXail7Zh5JjnBdMMKr+lRvqTNFr3Ow==" crossorigin="anonymous" />
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-10 offset-1">
+<div id="fullpage">
+<!--    <div class="container-fluid">-->
+<!--        <div class="row">-->
+    <div class="section">
+        <div class="col-md-10 offset-1">
+            <!-- header -->
+            <div class="row justify-content-center">
 
-                <!-- header -->
-                <div class="row justify-content-center">
-
-                    <!-- Headline -->
-                    <h1 class="align-self-center">
-                        Air Quality and Fire Carbon Emission
-                        <span class="divider">|</span>
-                        <span class="sub-headline">
-                                <span id="station-count"></span>
-                                Stations
-                            </span>
-                    </h1>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="form-group">
-                        <label for="gas">Pollutant:</label>
-                        <select class="form-control" id="gas" onchange="changeGas()">
+                <!-- Headline -->
+                <h1 class="align-self-center">
+                    Air Quality and Fire Carbon Emission
+                    <span class="divider">|</span>
+                    <span class="sub-headline">
+                            <span id="station-count"></span>
+                            Stations
+                        </span>
+                </h1>
+            </div>
+                <div class="form-group row justify-content-center">
+                    <label for="gas" class="col-sm-2 col-form-label">Pollutant:</label>
+                    <div class="col-sm-2">
+                        <select class="form-control form-control" id="gas" onchange="changeGas()">
                             <option value="o3">Ozone</option>
                             <option value="pm25">PM2.5</option>
                             <option value="no2">Nitrogen Dioxide</option>
@@ -43,24 +45,41 @@
                     </div>
                 </div>
 
-                <!-- content | map -->
-                <div class="row">
-                    <!-- Visualization placeholders -->
-                    <div id="station-map"></div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div id="timeline"></div>
-                    </div>
-                </div>
-                <div class="row third-row">
-                    <!-- Visualization placeholders -->
-                    <div class="col-6 detailed-chart" id="chart1"></div>
-                    <div class="col-6 detailed-chart" id="chart2"></div>
-                </div>
+            <!-- content | map -->
+            <div class="row">
+                <!-- Visualization placeholders -->
+                <div id="station-map"></div>
             </div>
         </div>
     </div>
+    <div class="section">
+        <div class="col-md-10 offset-1">
+            <div class="row justify-content-center">
+
+                <!-- Headline -->
+                <h2 class="align-self-center">
+                    <span id="location-name"></span>
+                    <span class="divider">|</span>
+                    <span id="coords"></span>
+                    <span class="divider">|</span>
+                    <span id="contaminant"></span>
+                </h2>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div id="timeline"></div>
+                </div>
+            </div>
+            <div class="row third-row">
+                <!-- Visualization placeholders -->
+                <div class="col-6 detailed-chart" id="chart1"></div>
+                <div class="col-6 detailed-chart" id="chart2"></div>
+            </div>
+        </div>
+    </div>
+<!--        </div>-->
+<!--    </div>-->
+</div>
 
     <!-- Load JS libraries !!ATTENTION: THIS IS NOT THE SLIM JQUERY VERSION THAT BOOTSTRAP USES/PROVIDES!! -->
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
@@ -74,6 +93,8 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
             integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
             crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.9/fullpage.js" integrity="sha512-eH2N2Zt2AeLuFlFvRSEeZcVeAESY+8nfIqhxx0XXEou6w/G4lLY3K8UKNYqi6e1pLXDduVF1KF/lbyxy3+X6OA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.9/fullpage.extensions.min.js" integrity="sha512-pci5WG2+7QnpsinWWpGUd3RgI61fU1bWlQQQegC2mVqwOQC/+Xp0ROGO0AYB6dvoLBYRxwm+t+DWOVRkxmlcdQ==" crossorigin="anonymous"></script>
 
     <!-- Visualization objects -->
     <script src="js/stationMap.js"></script>
@@ -82,5 +103,17 @@
     <script src="js/fireEmission.js"></script>
     <script src="js/helper.js"></script>
     <script src="js/main.js"></script>
+    <script>
+        new fullpage('#fullpage', {
+            anchors: ['firstPage', 'secondPage'],
+            scrollBar: true,
+            menu: '#menu',
+            continuousVertical: true,
+            navigation: true
+        });
+
+        //methods
+        // fullpage_api.setAllowScrolling(false);
+    </script>
 </body>
 </html>
