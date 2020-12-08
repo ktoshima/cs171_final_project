@@ -20,7 +20,7 @@ class FireEmission {
     initVis(){
         let vis = this;
 
-        vis.margin = {top: 40, right: 40, bottom: 60, left: 60};
+        vis.margin = {top: 60, right: 40, bottom: 60, left: 60};
 
         vis.width = $('#' + vis.parentElement).width() - vis.margin.left - vis.margin.right;
         vis.height = $('#' + vis.parentElement).height() - vis.margin.top - vis.margin.bottom;
@@ -35,7 +35,7 @@ class FireEmission {
 
         vis.svg.append("text")
             .text("Average concentration v. total carbon emission (weekly)")
-            .attr("transform", "translate(" + vis.width/2 + ", -10)")
+            .attr("transform", "translate(" + vis.width/2 + ", -15)")
             .attr("class", "chart-title");
 
         // Overlay with path clipping
@@ -69,7 +69,7 @@ class FireEmission {
             .attr("transform", "translate(0," + vis.height + ")")
             .append("text")
             .attr("x", vis.width/2)
-            .attr("y", 30)
+            .attr("y", 35)
             .attr("class", "axis-label x-axis-label");
 
         vis.svg.append("g")
@@ -77,7 +77,7 @@ class FireEmission {
             .attr("transform", "translate(" + -10 + " ,0)")
             .append("text")
             .attr("x", -vis.height/2)
-            .attr("y", -40)
+            .attr("y", -43)
             .attr("class", "axis-label y-axis-label y-axis-label-left")
             .attr("transform", "rotate(-90)");
 
@@ -171,7 +171,7 @@ class FireEmission {
             .text("Weekly average " + contam_dict[displayAirQualityData[0].parameter] + " concentration (" + displayAirQualityData[0].unit + ")");
 
         vis.svg.select(".x-axis-label")
-            .text("Carbon emission per week g-C/m2");
+            .text("Carbon emission per week g-C/m²");
 
     }
 }

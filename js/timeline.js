@@ -19,7 +19,7 @@ class Timeline {
         // store keyword this which refers to the object it belongs to in variable vis
         let vis = this;
 
-        vis.margin = {top: 10, right: 0, bottom: 20, left: 0};
+        vis.margin = {top: 20, right: 0, bottom: 20, left: 0};
 
         vis.width = $('#' + vis._parentElement).width() - vis.margin.left - vis.margin.right;
         vis.height = $('#' + vis._parentElement).height() - vis.margin.top - vis.margin.bottom;
@@ -30,6 +30,11 @@ class Timeline {
             .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
             .append("g")
             .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
+
+        vis.svg.append("text")
+            .attr("transform", "translate(" + vis.width/2 + ", -5)")
+            .attr("class", "chart-title")
+            .text("Timeline");
 
         // Scales and axes
         vis.x = d3.scaleUtc()

@@ -20,7 +20,7 @@ class AirQuality {
     initVis(){
         let vis = this;
 
-        vis.margin = {top: 40, right: 60, bottom: 60, left: 60};
+        vis.margin = {top: 60, right: 60, bottom: 60, left: 60};
 
         vis.width = $('#' + vis.parentElement).width() - vis.margin.left - vis.margin.right;
         vis.height = $('#' + vis.parentElement).height() - vis.margin.top - vis.margin.bottom;
@@ -35,7 +35,7 @@ class AirQuality {
 
         vis.svg.append("text")
             .text("Contaminant concentration & Carbon emission from wildfire")
-            .attr("transform", "translate(" + vis.width/2 + ", -10)")
+            .attr("transform", "translate(" + vis.width/2 + ", -15)")
             .attr("class", "chart-title");
 
 
@@ -80,7 +80,7 @@ class AirQuality {
             .attr("class", "y-axis y-axis-left axis-blue")
             .append("text")
             .attr("x", -vis.height/2)
-            .attr("y", -40)
+            .attr("y", -43)
             .attr("class", "axis-label y-axis-label y-axis-label-left")
             .attr("transform", "rotate(-90)");
 
@@ -89,7 +89,7 @@ class AirQuality {
             .attr("transform", "translate(" + vis.width + " ,0)")
             .append("text")
             .attr("x", -vis.height/2)
-            .attr("y", 40)
+            .attr("y", 43)
             .attr("class", "axis-label y-axis-label y-axis-label-right")
             .attr("transform", "rotate(-90)");
 
@@ -178,7 +178,7 @@ class AirQuality {
             .text(contam_dict[displayAirQualityData[0].parameter] + " concentration (" + displayAirQualityData[0].unit + ")");
 
         vis.svg.select(".y-axis-label-right")
-            .text("Carbon emission per day g-C/m2");
+            .text("Carbon emission per day g-C/m²");
 
     }
 }
