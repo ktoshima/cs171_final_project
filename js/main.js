@@ -77,7 +77,7 @@ function getLocations(gas_param) {
 
 function showAQ() {
     $("#location-name").html(locationName);
-    $("#coords").html(latlng.lat + ", " + latlng.lng);
+    $("#coords").html("lat: " + latlng.lat + ", lon: " + latlng.lng);
     let gas_param = $('#gas').val();
     let contam_dict = {o3: "Ozone", pm25: "PM2.5", no2: "Nitrogen dioxide"}
     $("#contaminant").html(contam_dict[gas_param]);

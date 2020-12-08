@@ -20,7 +20,7 @@ class FireEmission {
     initVis(){
         let vis = this;
 
-        vis.margin = {top: 40, right: 40, bottom: 60, left: 40};
+        vis.margin = {top: 40, right: 40, bottom: 60, left: 50};
 
         vis.width = $('#' + vis.parentElement).width() - vis.margin.left - vis.margin.right;
         vis.height = $('#' + vis.parentElement).height() - vis.margin.top - vis.margin.bottom;
@@ -34,12 +34,12 @@ class FireEmission {
             .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
 
         // Overlay with path clipping
-        vis.svg.append("defs").append("clipPath")
-            .attr("id", "clip")
-
-            .append("rect")
-            .attr("width", vis.width)
-            .attr("height", vis.height);
+        // vis.svg.append("defs").append("clipPath")
+        //     .attr("id", "clip")
+        //
+        //     .append("rect")
+        //     .attr("width", vis.width)
+        //     .attr("height", vis.height);
 
         // Scales and axes
         vis.x = d3.scaleLinear()
@@ -60,11 +60,12 @@ class FireEmission {
             .scale(vis.y);
 
         vis.svg.append("g")
-            .attr("class", "x-axis axis")
+            .attr("class", "x-axis axis axis-red")
             .attr("transform", "translate(0," + vis.height + ")");
 
         vis.svg.append("g")
-            .attr("class", "y-axis y-axis-left axis")
+            .attr("class", "y-axis y-axis-left axis axis-blue")
+            .attr("transform", "translate(" + -10 + " ,0)")
         // .style("fill", "steelblue");
 
 
@@ -133,6 +134,8 @@ class FireEmission {
             .enter()
             .append("circle")
             .attr("class", "scatter")
+            .attr("fill-opacity", .8)
+            .attr('stroke', 'black')
             // merging
             .merge(circles)
             .transition()

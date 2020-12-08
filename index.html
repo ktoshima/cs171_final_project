@@ -14,6 +14,7 @@
           integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
           crossorigin=""/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.9/fullpage.css" integrity="sha512-1No3nMY/zD37h1POyqULfwc9WMzWvXcal6F7/OIhNdWkTaEbt4Y6eqX0vXail7Zh5JjnBdMMKr+lRvqTNFr3Ow==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/chariot.css">
 </head>
 <body>
 <div id="fullpage">
@@ -97,6 +98,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.9/fullpage.extensions.min.js" integrity="sha512-pci5WG2+7QnpsinWWpGUd3RgI61fU1bWlQQQegC2mVqwOQC/+Xp0ROGO0AYB6dvoLBYRxwm+t+DWOVRkxmlcdQ==" crossorigin="anonymous"></script>
 
     <!-- Visualization objects -->
+    <script src="js/chariot.js"></script>
     <script src="js/stationMap.js"></script>
     <script src="js/timeline.js"></script>
     <script src="js/airQuality.js"></script>
@@ -108,9 +110,22 @@
             anchors: ['firstPage', 'secondPage'],
             scrollBar: true,
             menu: '#menu',
-            continuousVertical: true,
+            // continuousVertical: true,
             navigation: true
         });
+
+        // console.log(new Chariot());
+        //
+        // Chariot.startTutorial([
+        //     {
+        //         selectors: '#gas',
+        //         tooltip: {
+        //             position: 'bottom',
+        //             title: 'Select contaminant',
+        //             text: "Select the name of contaminant you would like to check. For tutorial, let's select PM2.5."
+        //         }
+        //     }
+        // ])
 
         //methods
         // fullpage_api.setAllowScrolling(false);

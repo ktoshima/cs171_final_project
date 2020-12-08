@@ -20,7 +20,7 @@ class AirQuality {
     initVis(){
         let vis = this;
 
-        vis.margin = {top: 40, right: 40, bottom: 60, left: 40};
+        vis.margin = {top: 40, right: 60, bottom: 60, left: 60};
 
         vis.width = $('#' + vis.parentElement).width() - vis.margin.left - vis.margin.right;
         vis.height = $('#' + vis.parentElement).height() - vis.margin.top - vis.margin.bottom;
@@ -33,13 +33,13 @@ class AirQuality {
             .append("g")
             .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
 
-        // Overlay with path clipping
-        vis.svg.append("defs").append("clipPath")
-            .attr("id", "clip")
-
-            .append("rect")
-            .attr("width", vis.width)
-            .attr("height", vis.height);
+        // // Overlay with path clipping
+        // vis.svg.append("defs").append("clipPath")
+        //     .attr("id", "clip")
+        //
+        //     .append("rect")
+        //     .attr("width", vis.width)
+        //     .attr("height", vis.height);
 
         // Scales and axes
         vis.x = d3.scaleUtc()
@@ -52,7 +52,8 @@ class AirQuality {
             .range([vis.height, 0]);
 
         vis.xAxis = d3.axisBottom()
-            .scale(vis.x);
+            .scale(vis.x)
+            .ticks(5);
 
         vis.yAxisLeft = d3.axisLeft()
             .scale(vis.y_aq);
@@ -62,16 +63,31 @@ class AirQuality {
 
         vis.svg.append("g")
             .attr("class", "x-axis axis")
-            .attr("transform", "translate(0," + vis.height + ")");
+            .attr("transform", "translate(0," + vis.height + ")")
+            .append("text")
+            .attr("x", vis.width/2)
+            .attr("y", 30)
+            .attr("class", "axis-label x-axis-label")
+
 
         vis.svg.append("g")
-            .attr("class", "y-axis y-axis-left axis")
-            // .style("fill", "steelblue");
+            .attr("class", "y-axis y-axis-left axis-blue")
+            .append("text")
+            .attr("x", -vis.height/2)
+            .attr("y", -30)
+            .attr("class", "axis-label y-axis-label y-axis-label-left")
+            .attr("transform", "rotate(-90)")
+            .text("carbon emission $g$-$C/m^2\\cdot$day");;
 
         vis.svg.append("g")
-            .attr("class", "y-axis y-axis-right axis")
+            .attr("class", "y-axis y-axis-right axis-red")
             .attr("transform", "translate(" + vis.width + " ,0)")
-            // .style("fill", "red");
+            .append("text")
+            .attr("x", -vis.height/2)
+            .attr("y", 40)
+            .attr("class", "axis-label y-axis-label y-axis-label-right")
+            .attr("transform", "rotate(-90)")
+            .text("carbon emission $g$-$C/m^2\\cdot$day");;
 
         vis.svg.append("path")
             .attr("stroke", "none")
@@ -153,6 +169,12 @@ class AirQuality {
         vis.svg.select(".y-axis-right")
             .transition()
             .call(vis.yAxisRight);
+
+        vis.svg.select(".y-axis-label-left")
+            .text("test");
+
+        vis.svg.select(".y-axis-label-right")
+            .text("carbon emission $g$-$C/m^2\\cdot$day");
 
     }
 }
