@@ -47,14 +47,18 @@ Specify size of the map container for leaflet
 }
 
 .axis-red text {
-    color: red;
+    fill: red;
 }
 
 .axis-blue text {
-    color: steelblue;
+    fill: steelblue;
 }
 
 .axis-label {
     text-anchor: middle;
     font-size: 12px;
+}
+
+.chart-title {
+    text-anchor: middle;
 }

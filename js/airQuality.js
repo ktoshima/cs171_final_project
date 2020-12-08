@@ -33,6 +33,12 @@ class AirQuality {
             .append("g")
             .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
 
+        vis.svg.append("text")
+            .text("Contaminant concentration & Carbon emission from wildfire")
+            .attr("transform", "translate(" + vis.width/2 + ", -10)")
+            .attr("class", "chart-title");
+
+
         // // Overlay with path clipping
         // vis.svg.append("defs").append("clipPath")
         //     .attr("id", "clip")
@@ -67,17 +73,16 @@ class AirQuality {
             .append("text")
             .attr("x", vis.width/2)
             .attr("y", 30)
-            .attr("class", "axis-label x-axis-label")
+            .attr("class", "axis-label x-axis-label");
 
 
         vis.svg.append("g")
             .attr("class", "y-axis y-axis-left axis-blue")
             .append("text")
             .attr("x", -vis.height/2)
-            .attr("y", -30)
+            .attr("y", -40)
             .attr("class", "axis-label y-axis-label y-axis-label-left")
-            .attr("transform", "rotate(-90)")
-            .text("carbon emission $g$-$C/m^2\\cdot$day");;
+            .attr("transform", "rotate(-90)");
 
         vis.svg.append("g")
             .attr("class", "y-axis y-axis-right axis-red")
@@ -86,8 +91,7 @@ class AirQuality {
             .attr("x", -vis.height/2)
             .attr("y", 40)
             .attr("class", "axis-label y-axis-label y-axis-label-right")
-            .attr("transform", "rotate(-90)")
-            .text("carbon emission $g$-$C/m^2\\cdot$day");;
+            .attr("transform", "rotate(-90)");
 
         vis.svg.append("path")
             .attr("stroke", "none")
@@ -171,10 +175,10 @@ class AirQuality {
             .call(vis.yAxisRight);
 
         vis.svg.select(".y-axis-label-left")
-            .text("test");
+            .text(contam_dict[displayAirQualityData[0].parameter] + " concentration (" + displayAirQualityData[0].unit + ")");
 
         vis.svg.select(".y-axis-label-right")
-            .text("carbon emission $g$-$C/m^2\\cdot$day");
+            .text("Carbon emission per day g-C/m2");
 
     }
 }

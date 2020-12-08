@@ -5,6 +5,8 @@
  *  @param _data            -- Array with all stations of the bike-sharing network
  */
 
+let contam_dict = {o3: "Ozone", pm25: "PM2.5", no2: "Nitrogen dioxide"}
+
 class StationMap {
 
 	/*
@@ -75,7 +77,6 @@ class StationMap {
 					locationName = e.target.options.className;
 					latlng = e.latlng;
 					showAQ();
-					fullpage_api.moveTo(2)
 				});
 			vis.stationMarkers.addLayer(marker);
 		});
