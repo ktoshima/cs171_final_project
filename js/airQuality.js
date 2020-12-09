@@ -40,12 +40,11 @@ class AirQuality {
 
 
         // // Overlay with path clipping
-        // vis.svg.append("defs").append("clipPath")
-        //     .attr("id", "clip")
-        //
-        //     .append("rect")
-        //     .attr("width", vis.width)
-        //     .attr("height", vis.height);
+        vis.svg.append("defs").append("clipPath")
+            .attr("id", "chart-clip")
+            .append("rect")
+            .attr("width", vis.width)
+            .attr("height", vis.height);
 
         // Scales and axes
         vis.x = d3.scaleUtc()
@@ -98,12 +97,20 @@ class AirQuality {
             .attr("fill", "steelblue")
             .attr("fill-opacity", 0.5)
             .attr('class', 'aq-line')
+            .attr('clip-path', "url(#chart-clip)")
+
+        vis.svg.append("path")
+            .attr("stroke", "blue")
+            .attr('class', 'aq-line-over')
+            .style("stroke-dasharray", ("3, 3"))
+            .attr('clip-path', "url(#chart-clip)")
 
         vis.svg.append("path")
             .attr("stroke", "none")
             .attr("fill", "red")
             .attr("fill-opacity", 0.5)
             .attr('class', 'fire-line')
+            .attr('clip-path', "url(#chart-clip)")
 
     }
 
@@ -143,6 +150,23 @@ class AirQuality {
                 return vis.y_aq(d.value);
             });
 
+        vis.aq_over = d3.line()
+            .defined(d => {
+                return !isNaN(d.value)
+            })
+            .x(function(d) {
+                return vis.x(dateParser(d.date.utc));
+            })
+            .y(d => {
+                if (d.parameter == "o3") {
+                    return vis.y_aq(0.1)
+                } else if (d.parameter == "pm25") {
+                    return vis.y_aq(55)
+                } else if (d.parameter == "no2") {
+                    return vis.y_aq(1)
+                }
+            });
+
         vis.area_fire = d3.area()
             .x(function(d) {
                 return vis.x(d.time);
@@ -157,6 +181,11 @@ class AirQuality {
             .datum(displayAirQualityData.filter(vis.area_aq.defined()))
             .transition()
             .attr("d", vis.area_aq);
+
+        vis.svg.select("path.aq-line-over")
+            .datum(displayAirQualityData.filter(vis.area_aq.defined()))
+            .transition()
+            .attr("d", vis.aq_over);
 
         vis.svg.select("path.fire-line")
             .datum(displayFireData)
