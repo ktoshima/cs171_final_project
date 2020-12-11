@@ -35,7 +35,13 @@
                         </span>
                 </h1>
             </div>
-                <div class="form-group row justify-content-center">
+            <div class="row justify-content-center">
+                <div class="description">
+                    Wildfire smoke produces multiple hazardous gasses for humans; ozone, PM2.5, nitrogen dioxide, etc.
+                    Choose one that interest you from the pulldown below.
+                </div>
+            </div>
+                <div class="form-group row justify-content-center gas-form">
                     <label for="gas" class="col-sm-2 col-form-label">Pollutant:</label>
                     <div class="col-sm-2">
                         <select class="form-control form-control" id="gas" onchange="changeGas()">
@@ -45,6 +51,13 @@
                         </select>
                     </div>
                 </div>
+            <div class="row justify-content-center">
+                <div class="description">
+                    The red dots represent air quality observation points across the United States which
+                    measures the contaminant you chose above in 2018.
+                    We suggest one in the Northwest, where the wildfires are most severe.
+                </div>
+            </div>
 
             <!-- content | map -->
             <div class="row">
@@ -66,6 +79,15 @@
                     <span id="contaminant"></span>
                 </h2>
             </div>
+            <div class="row justify-content-center">
+                <div class="description">
+                    The below is a timeline of the measurements made at the observation point;
+                    the blue represents the concentration of contaminant and the red represents the
+                    carbon emission from wildfire from 2.5x2.5 degree grid in which the observation point
+                    resides. You can brush on this timeline to see details in below charts, so let's brush on when
+                    the red area has peaked i.e. the wildfire was severe.
+                </div>
+            </div>
             <div class="row">
                 <div class="col">
                     <div id="timeline"></div>
@@ -73,8 +95,26 @@
             </div>
             <div class="row third-row">
                 <!-- Visualization placeholders -->
-                <div class="col-6 detailed-chart" id="chart1"></div>
-                <div class="col-6 detailed-chart" id="chart2"></div>
+                <div class="col-6 detailed-chart">
+                    <div class="row justify-content-center">
+                        <div class="description">
+                            The chart is shows the same thing as the timeline except it only shows the selected
+                            time range from above. See if the concentration of the contaminant increases as the
+                            carbon emission from wildfire goes up.
+                        </div>
+                    </div>
+                    <div class="row" id="chart1"></div>
+                </div>
+                <div class="col-6 detailed-chart">
+                    <div class="row justify-content-center">
+                        <div class="description">
+                            This is a scatter plot of weekly total carbon emission v. weekly average concentration
+                            of the contaminant. While PM2.5 is likely to correlate, ozone and nitrogen dioxide aren't
+                            necessarily due to other contaminant factors.
+                        </div>
+                    </div>
+                    <div class="row" id="chart2"></div>
+                </div>
             </div>
         </div>
     </div>

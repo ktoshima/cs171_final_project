@@ -64,3 +64,11 @@ Specify size of the map container for leaflet
     text-anchor: middle;
     font-weight: 300;
 }
+
+.description {
+    margin: 3px 10px;
+}
+
+.gas-form {
+    margin: 5px auto;
+}
