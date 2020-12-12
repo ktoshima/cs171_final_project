@@ -77,7 +77,7 @@ class FireEmission {
             .attr("transform", "translate(" + -10 + " ,0)")
             .append("text")
             .attr("x", -vis.height/2)
-            .attr("y", -43)
+            .attr("y", -40)
             .attr("class", "axis-label y-axis-label y-axis-label-left")
             .attr("transform", "rotate(-90)");
 
@@ -134,8 +134,10 @@ class FireEmission {
 
         // Update domain
         // Get the maximum of the multi-dimensional array or in other words, get the highest peak of the uppermost layer
-        vis.x.domain([0, d3.max(vis.scatter_data, d => d.emission)]);
-        vis.y.domain([0, d3.max(vis.scatter_data, d => d.value)]);
+        let emission_max = d3.max(vis.scatter_data, d => d.emission)
+        let value_max = d3.max(vis.scatter_data, d => d.emission)
+        vis.x.domain([0, emission_max * 1.05]);
+        vis.y.domain([0, value_max * 1.05]);
         vis.radius.domain([0, d3.max(vis.scatter_data, d => d.value)]);
         vis.aqColor.domain([0, d3.max(vis.scatter_data, d => d.emission)]);
 

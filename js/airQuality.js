@@ -39,7 +39,7 @@ class AirQuality {
             .attr("class", "chart-title");
 
 
-        // // Overlay with path clipping
+        // Overlay with path clipping
         vis.svg.append("defs").append("clipPath")
             .attr("id", "chart-clip")
             .append("rect")
@@ -79,7 +79,7 @@ class AirQuality {
             .attr("class", "y-axis y-axis-left axis-blue")
             .append("text")
             .attr("x", -vis.height/2)
-            .attr("y", -43)
+            .attr("y", -40)
             .attr("class", "axis-label y-axis-label y-axis-label-left")
             .attr("transform", "rotate(-90)");
 

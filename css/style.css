@@ -38,8 +38,11 @@ Specify size of the map container for leaflet
     height: 120px;
 }
 
-.third-row {
-    height: 600px;
+#chart1 {
+    height: 500px;
+}
+#chart2 {
+    height: 500px;
 }
 
 .detailed-chart {

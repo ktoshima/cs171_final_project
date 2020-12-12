@@ -96,24 +96,32 @@
             <div class="row third-row">
                 <!-- Visualization placeholders -->
                 <div class="col-6 detailed-chart">
+                    <div class="row" id="chart1"></div>
                     <div class="row justify-content-center">
                         <div class="description">
                             The chart is shows the same thing as the timeline except it only shows the selected
                             time range from above. See if the concentration of the contaminant increases as the
-                            carbon emission from wildfire goes up.
+                            carbon emission from wildfire goes up. The blue dotted line (if you see one) is the
+                            EPA air quality standard for the contaminant.
                         </div>
                     </div>
-                    <div class="row" id="chart1"></div>
                 </div>
                 <div class="col-6 detailed-chart">
+                    <div class="row" id="chart2"></div>
                     <div class="row justify-content-center">
                         <div class="description">
                             This is a scatter plot of weekly total carbon emission v. weekly average concentration
-                            of the contaminant. While PM2.5 is likely to correlate, ozone and nitrogen dioxide aren't
+                            of the contaminant. Bigger circle = more contaminant, more black = more carbon emission.
+                            While PM2.5 is likely to correlate, ozone and nitrogen dioxide aren't
                             necessarily due to other contaminant factors.
                         </div>
                     </div>
-                    <div class="row" id="chart2"></div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="description">
+                    To go back to the map, you can either scroll back or click the dots on the right side of the
+                    screen. Explore cities and areas you're interested in.
                 </div>
             </div>
         </div>
@@ -136,10 +144,8 @@
             crossorigin=""></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.9/fullpage.js" integrity="sha512-eH2N2Zt2AeLuFlFvRSEeZcVeAESY+8nfIqhxx0XXEou6w/G4lLY3K8UKNYqi6e1pLXDduVF1KF/lbyxy3+X6OA==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.9/fullpage.extensions.min.js" integrity="sha512-pci5WG2+7QnpsinWWpGUd3RgI61fU1bWlQQQegC2mVqwOQC/+Xp0ROGO0AYB6dvoLBYRxwm+t+DWOVRkxmlcdQ==" crossorigin="anonymous"></script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG"></script>
 
     <!-- Visualization objects -->
-    <script src="js/chariot.js"></script>
     <script src="js/stationMap.js"></script>
     <script src="js/timeline.js"></script>
     <script src="js/airQuality.js"></script>
