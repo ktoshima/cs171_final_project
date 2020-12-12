@@ -135,7 +135,7 @@ class FireEmission {
         // Update domain
         // Get the maximum of the multi-dimensional array or in other words, get the highest peak of the uppermost layer
         let emission_max = d3.max(vis.scatter_data, d => d.emission)
-        let value_max = d3.max(vis.scatter_data, d => d.emission)
+        let value_max = d3.max(vis.scatter_data, d => d.value)
         vis.x.domain([0, emission_max * 1.05]);
         vis.y.domain([0, value_max * 1.05]);
         vis.radius.domain([0, d3.max(vis.scatter_data, d => d.value)]);
